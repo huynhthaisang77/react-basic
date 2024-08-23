@@ -1,35 +1,69 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import TodoNew from "./components/todo/todoNew";
+import TodoData from "./components/todo/todoData";
+import "./components/todo/todo.css";
+import reactLogo from "./assets/react.svg";
+import { useState } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
+
+const App = () => {
+
+  const [todoList, setTodoList] = useState([
+    // { id: 1, name: "Learning React"},
+    // { id: 2, name: "Watching youtube"}
+  ])
+
+
+
+  const addNewTodo = (name) => {
+    const newTodo = {
+      id: randomIntFromInterval(1, 1000000),
+      name: name
+  }
+    setTodoList([...todoList, newTodo])
+  }
+
+
+  const randomIntFromInterval = (min, max) => { // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    const deleteTodo = (id) => {
+      const newTodo = todoList.filter(item => item.id !== id)
+      setTodoList(newTodo)
+    }
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="todo-container">
+      <div className="todo-title">Todo List</div>
+      <TodoNew 
+      addNewTodo={addNewTodo}
+      />
 
-export default App
+      {todoList.length > 0 ? 
+      <TodoData 
+        todoList={todoList}
+        deleteTodo={deleteTodo}
+        />
+      :
+      <div className="todo-image">
+        <img src={reactLogo} className="logo" />
+      </div>
+      }
+
+      {/* {todoList.length > 0 && 
+      <TodoData 
+        todoList={todoList}
+        />
+      }
+
+      {todoList.length === 0 &&
+      <div className="todo-image">
+        <img src={reactLogo} className="logo" />
+      </div>
+      } */}
+      
+    </div>
+  );
+};
+
+export default App;
