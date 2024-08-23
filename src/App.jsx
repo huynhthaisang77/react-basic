@@ -7,8 +7,7 @@ import Header from "./components/layout/header";
 import Footer from "./components/layout/footer";
 import { Outlet } from "react-router-dom";
 
-const App = () => {
-
+const TodoApp = () => {
   const [todoList, setTodoList] = useState([
     // { id: 1, name: "Learning React"},
     // { id: 2, name: "Watching youtube"}
@@ -33,11 +32,8 @@ const App = () => {
       const newTodo = todoList.filter(item => item.id !== id)
       setTodoList(newTodo)
     }
-
-  return (
-    <>
-    <Header/>
-    <div className="todo-container">
+    return (
+      <div className="todo-container">
       <div className="todo-title">Todo List</div>
       <TodoNew 
       addNewTodo={addNewTodo}
@@ -67,6 +63,16 @@ const App = () => {
       } */}
       
     </div>
+    )
+}
+
+const App = () => {
+
+
+
+  return (
+    <>
+    <Header/>
     <Footer/>
     <Outlet/>
     </>
