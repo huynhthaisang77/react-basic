@@ -29,7 +29,7 @@ const UserTable = () => {
     const res = await fetchAllUserAPI();
     setDataUser(res.data);
   };
-  loadUser();
+  // loadUser();
 
   return <Table columns={columns} dataSource={dataUsers} rowKey={"_id"} />;
 };

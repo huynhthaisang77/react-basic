@@ -10,27 +10,27 @@ const UserForm = () => {
 
   const [isModalOpen, setIsModalOpen] = useState([false]);
 
-  const handleClickBtn = async () => {
-    setIsModalOpen(true);
-    // const res = await createUserAPI(fullName, email, password, phone);
-    // if (res.data) {
-    //   notification.success({
-    //     message: "Create user",
-    //     description: "Tạo user thành công",
-    //   });
-    // } else {
-    //   notification.error({
-    //     message: "Error create user",
-    //     description: JSON.stringify(res.message),
-    //   });
-    // }
+  const handleSubmitBtn = async () => {
+    const res = await createUserAPI(fullName, email, password, phone);
+    if (res.data) {
+      notification.success({
+        message: "Create user",
+        description: "Tạo user thành công",
+      });
+      setIsModalOpen(false);
+    } else {
+      notification.error({
+        message: "Error create user",
+        description: JSON.stringify(res.message),
+      });
+    }
   };
 
   return (
     <div className="user-form" style={{ margin: "10px 0" }}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <h3>Table Users</h3>
-        <Button onClick={handleClickBtn} type="primary">
+        <Button onClick={() => setIsModalOpen(true)} type="primary">
           Create User
         </Button>
       </div>
@@ -38,7 +38,7 @@ const UserForm = () => {
       <Modal
         title="Create User"
         open={isModalOpen}
-        onOk={() => setIsModalOpen(false)}
+        onOk={() => handleSubmitBtn()}
         onCancel={() => setIsModalOpen(false)}
         maskClosable={false}
         okText={"CREATE"}
