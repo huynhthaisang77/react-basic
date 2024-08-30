@@ -49,7 +49,7 @@ const UserForm = (props) => {
         title="Create User"
         open={isModalOpen}
         onOk={() => handleSubmitBtn()}
-        onCancel={() => resetAndCloseModal}
+        onCancel={() => resetAndCloseModal()}
         maskClosable={false}
         okText={"CREATE"}
       >
